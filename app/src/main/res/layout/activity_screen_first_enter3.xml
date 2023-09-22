@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_screen_first_enter2">
+    tools:context=".activity_screen_first_enter3">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Пропустить"
+        android:text="Завершить"
         android:fontFamily="@font/lato_font"
         android:textSize="20dp"
         android:textColor="#57A9FF"
@@ -40,10 +40,10 @@
         app:layout_constraintTop_toBottomOf="@+id/view">
 
         <TextView
-            android:layout_width="128dp"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:gravity="center"
-            android:text="Уведомления"
+            android:text="Мониторинг"
             android:fontFamily="@font/lato_font"
             android:textSize="20dp"
             android:textColor="#00B712"
@@ -51,14 +51,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="225dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="29dp"
             android:gravity="center"
             android:fontFamily="@font/sf_pro_font"
             android:textColor="#939396"
             android:textSize="14dp"
-            android:text="Вы быстро узнаете о его результатах"
+            android:text="Наши врачи всегда наблюдают\n за вашими показателями здоровья"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,7 +68,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="42dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -79,25 +79,25 @@
             android:background="@drawable/activity_screen_first_enter_swipe_indicator_unselected"></View>
 
         <View
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/activity_screen_first_enter_swipe_indicator_selected"></View>
-
-        <View
             android:layout_width="14dp"
             android:layout_height="14dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:background="@drawable/activity_screen_first_enter_swipe_indicator_unselected"></View>
+
+        <View
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/activity_screen_first_enter_swipe_indicator_selected"></View>
 
     </LinearLayout>
 
     <View
-        android:layout_width="366dp"
-        android:layout_height="217dp"
-        android:layout_marginTop="106dp"
-        android:background="@mipmap/activity_screen_first_enter_picture_2"
+        android:layout_width="359dp"
+        android:layout_height="269dp"
+        android:layout_marginTop="68.71dp"
+        android:background="@mipmap/activity_screen_first_enter_picture_3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"></View>
