@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen_first_enter">
+    tools:context=".screen_first_enter"
+    android:id="@+id/MainConstraintLayout">
 
     <TextView
         android:id="@+id/textView"
