@@ -1,17 +1,23 @@
 package com.example.myapplication
 
+import ClassifiedSwipeClass
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import android.view.GestureDetector
 import android.view.GestureDetector.OnGestureListener
 import android.view.GestureDetector.SimpleOnGestureListener
+import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.View
 import android.view.View.OnTouchListener
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GestureDetectorCompat
+import com.example.myapplication.databinding.ActivityLoginWindowBinding
 import com.example.myapplication.databinding.ActivityScreenFirstEnter1Binding
 
 class screen_first_enter : AppCompatActivity(), GestureDetector.OnGestureListener {
@@ -19,8 +25,17 @@ class screen_first_enter : AppCompatActivity(), GestureDetector.OnGestureListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var binding = ActivityScreenFirstEnter1Binding.inflate(layoutInflater)
-        setContentView(R.layout.activity_screen_first_enter1)
+        val View = binding.root
+        setContentView(View)
         gestureDetectorCompat = GestureDetectorCompat(this, this)
+        binding.textView.setOnClickListener{
+            val intent = Intent(this@screen_first_enter, LoginWindow::class.java)
+            startActivity(intent)
+        }
+    }
+
+    fun onClick()
+    {
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -33,30 +48,36 @@ class screen_first_enter : AppCompatActivity(), GestureDetector.OnGestureListene
 
 
     override fun onDown(p0: MotionEvent): Boolean {
-        Toast.makeText(this, "OnDown", Toast.LENGTH_SHORT).show()
         return true
     }
 
     override fun onShowPress(p0: MotionEvent) {
-        Toast.makeText(this, "onShowPress", Toast.LENGTH_SHORT).show()
     }
 
     override fun onSingleTapUp(p0: MotionEvent): Boolean {
-        Toast.makeText(this, "onSingleTapUp", Toast.LENGTH_SHORT).show()
         return true
     }
 
     override fun onScroll(p0: MotionEvent, p1: MotionEvent, p2: Float, p3: Float): Boolean {
-        Toast.makeText(this, "onScroll", Toast.LENGTH_SHORT).show()
+        when (ClassifiedSwipeClass(p0, p1, p2, p3).defineSwipe(150))
+        {
+            SwipeVariant.SwipeLeft -> {
+                val intent = Intent(this@screen_first_enter, activity_screen_first_enter2::class.java)
+                startActivity(intent)
+            }
+            else ->
+            {
+
+            }
+        }
         return true
     }
 
-    override fun onLongPress(p0: MotionEvent) {
-        Toast.makeText(this, "onLongPress", Toast.LENGTH_SHORT).show()
+    override fun onLongPress(p0: MotionEvent)
+    {
     }
 
     override fun onFling(p0: MotionEvent, p1: MotionEvent, p2: Float, p3: Float): Boolean {
-        Toast.makeText(this, "onFling", Toast.LENGTH_SHORT).show()
         return true
     }
 }

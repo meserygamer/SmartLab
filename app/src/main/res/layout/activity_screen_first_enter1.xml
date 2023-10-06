@@ -11,6 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:text="Пропустить"
         android:fontFamily="@font/lato_font"
         android:textSize="20dp"
