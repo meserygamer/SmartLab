@@ -20,10 +20,11 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <View
+            <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:background="@mipmap/handclap"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/handclap"/>
 
             <TextView
                 android:layout_width="228dp"
@@ -88,6 +89,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/send_code_button"
         android:enabled="false"
+        android:clickable="true"
         android:text="Далее"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -122,10 +124,12 @@
             android:layout_width="335dp"
             android:layout_height="60dp"
             android:layout_marginTop="16dp"
+            android:shadowColor="#0000"
             android:text="Войти с Яндекс"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="17dp"
+            android:stateListAnimator="@null"
             android:background="@drawable/enter_with_yandex_button"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -93,13 +93,15 @@
 
     </LinearLayout>
 
-    <View
+    <ImageView
         android:layout_width="366dp"
         android:layout_height="217dp"
         android:layout_marginTop="106dp"
-        android:background="@mipmap/activity_screen_first_enter_picture_2"
+        android:scaleType="fitXY"
+        android:src="@drawable/activity_screen_first_enter_picture_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"></View>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+    </ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
