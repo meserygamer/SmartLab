@@ -21,7 +21,7 @@ class LoginWindow : AppCompatActivity(), TextWatcher {
         setContentView(View)
         binding!!.editTextTextEmailAddress.addTextChangedListener(this)
         binding!!.appCompatButton.setOnClickListener{
-            val intent = Intent(this@LoginWindow, EnterCodeFromEmail::class.java)
+            var intent = Intent(this@LoginWindow, enter_confirm_email::class.java)
             startActivity(intent)
         }
     }

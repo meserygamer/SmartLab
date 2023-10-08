@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".enter_confirm_email"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/layerlisttest"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="20dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="232dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Введите код из E-mail"
+            android:textSize="17dp"
+            android:fontFamily="@font/sf_pro_display_semibold"
+            android:textFontWeight="600"
+            android:textColor="@color/black"
+            android:lineHeight="24dp"/>
+
+        <com.chaos.view.PinView
+            android:id="@+id/firstPinView"
+            style="@style/PinWidget.PinView"
+            android:layout_marginTop="24dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:itemHeight="48dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:textFontWeight="400"
+            android:textSize="20dp"
+            android:lineHeight="28dp"
+
+            app:itemWidth="48dp"
+            android:inputType="number"
+            android:itemBackground="@drawable/activity_enter_confirm_email_pinview_background"
+            app:lineWidth="0dp"
+            app:lineColor="#0000"
+            app:itemSpacing="8dp"
+            android:clickable="true"/>
+
+        <TextView
+            android:id="@+id/Timer"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Отправить код можно\n через 59 секунд"
+            android:textSize="15dp"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:textFontWeight="400"
+            android:textColor="#939396"
+            android:lineHeight="20dp"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
