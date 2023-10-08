@@ -1,29 +1,52 @@
 package com.example.myapplication
 
-import android.content.Context
+import Common
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.databinding.ActivityLoginWindowBinding
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.Callback
+import java.io.IOException
 
 class LoginWindow : AppCompatActivity(), TextWatcher {
 
     public var binding : ActivityLoginWindowBinding? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityLoginWindowBinding.inflate(layoutInflater);
         val View = binding!!.root
         setContentView(View)
         binding!!.editTextTextEmailAddress.addTextChangedListener(this)
         binding!!.appCompatButton.setOnClickListener{
-            var intent = Intent(this@LoginWindow, enter_confirm_email::class.java)
-            startActivity(intent)
+            Common.retrofitService.SendCodeOnEmail(binding!!.editTextTextEmailAddress.text.toString())
+                .enqueue(object : Callback<String> {
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+
+                    Toast.makeText(this@LoginWindow,  t.message, Toast.LENGTH_LONG).show()
+
+                }
+
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+
+                    if(response.code() == 200)
+                    {
+                        var intent = Intent(this@LoginWindow, enter_confirm_email::class.java)
+                        startActivity(intent)
+                    }
+
+                }
+            })
         }
+        OpenCodeBoard()
+
     }
 
     public fun validateEmail()
@@ -51,4 +74,10 @@ class LoginWindow : AppCompatActivity(), TextWatcher {
 
     override fun afterTextChanged(s: Editable?) {
     }
+
+    public fun OpenCodeBoard(){
+        binding!!.editTextTextEmailAddress.setFocusableInTouchMode(true)
+        binding!!.editTextTextEmailAddress.requestFocus()
+    }
+
 }

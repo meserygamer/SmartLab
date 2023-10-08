@@ -47,6 +47,7 @@
             android:textFontWeight="400"
             android:textSize="20dp"
             android:lineHeight="28dp"
+            android:focusedByDefault="true"
 
             app:itemWidth="48dp"
             android:inputType="number"
