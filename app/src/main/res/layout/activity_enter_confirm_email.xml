@@ -11,6 +11,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:src="@drawable/layerlisttest"
+        android:id="@+id/MoveOnPreviousPageButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="24dp"
@@ -48,7 +49,6 @@
             android:textSize="20dp"
             android:lineHeight="28dp"
             android:focusedByDefault="true"
-
             app:itemWidth="48dp"
             android:inputType="number"
             android:itemBackground="@drawable/activity_enter_confirm_email_pinview_background"

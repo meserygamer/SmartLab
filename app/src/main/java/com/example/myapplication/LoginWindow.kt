@@ -38,6 +38,7 @@ class LoginWindow : AppCompatActivity(), TextWatcher {
 
                     if(response.code() == 200)
                     {
+                        Common.User_mail = binding!!.editTextTextEmailAddress.text.toString()
                         var intent = Intent(this@LoginWindow, enter_confirm_email::class.java)
                         startActivity(intent)
                     }
