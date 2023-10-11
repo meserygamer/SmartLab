@@ -62,11 +62,14 @@ class enter_confirm_email : AppCompatActivity(), TextWatcher {
                             if(response.body() != null)
                             {
                                 Common.Bearer = response.body()!!
-                                Toast.makeText(this@enter_confirm_email, "Успешный вход", LENGTH_SHORT).show()
+                                var intent = Intent(this@enter_confirm_email, CreatePassswordActivity::class.java)
+                                startActivity(intent)
                             }
                         }
-                        Toast.makeText(this@enter_confirm_email, "Код не верен", LENGTH_SHORT).show()
-                        _bind!!.firstPinView.setText("")
+                        else{
+                            Toast.makeText(this@enter_confirm_email, "Код не верен", LENGTH_SHORT).show()
+                            _bind!!.firstPinView.setText("")
+                        }
                     }
 
                     override fun onFailure(call: Call<String>, t: Throwable) {

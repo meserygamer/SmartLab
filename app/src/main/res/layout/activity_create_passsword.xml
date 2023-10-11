@@ -65,6 +65,7 @@
         android:layout_marginTop="56dp">
 
         <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/DotOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/activity_create_password_dot_back"
@@ -74,6 +75,7 @@
             android:layout_marginRight="12dp"/>
 
         <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/DotTwo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/activity_create_password_dot_back"
@@ -83,6 +85,7 @@
             android:layout_marginRight="12dp"/>
 
         <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/DotThree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/activity_create_password_dot_back"
@@ -92,6 +95,7 @@
             android:layout_marginRight="12dp"/>
 
         <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/DotFour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/activity_create_password_dot_back"
@@ -116,6 +120,8 @@
             android:layout_marginBottom="24dp">
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Number1"
+
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginRight="24dp"
@@ -126,9 +132,14 @@
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:textSize="24sp"
                 android:textFontWeight="600"
-                android:lineHeight="28dp"/>
+                android:lineHeight="28dp"
+                android:textColor="@color/activity_create_pasword_color_of_button_text"
+
+                android:onClick="clickOnNumber"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Number2"
+
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginRight="24dp"
@@ -139,9 +150,14 @@
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:textSize="24sp"
                 android:textFontWeight="600"
-                android:lineHeight="28dp"/>
+                android:lineHeight="28dp"
+                android:textColor="@color/activity_create_pasword_color_of_button_text"
+
+                android:onClick="clickOnNumber"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Number3"
+
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:background="@drawable/activity_create_password_num_button"
@@ -151,7 +167,10 @@
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:textSize="24sp"
                 android:textFontWeight="600"
-                android:lineHeight="28dp"/>
+                android:lineHeight="28dp"
+                android:textColor="@color/activity_create_pasword_color_of_button_text"
+
+                android:onClick="clickOnNumber"/>
 
         </LinearLayout>
 
@@ -161,6 +180,8 @@
             android:layout_marginBottom="24dp">
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Number4"
+
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginRight="24dp"
@@ -171,9 +192,14 @@
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:textSize="24sp"
                 android:textFontWeight="600"
-                android:lineHeight="28dp"/>
+                android:lineHeight="28dp"
+                android:textColor="@color/activity_create_pasword_color_of_button_text"
+
+                android:onClick="clickOnNumber"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Number5"
+
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginRight="24dp"
@@ -184,9 +210,14 @@
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:textSize="24sp"
                 android:textFontWeight="600"
-                android:lineHeight="28dp"/>
+                android:lineHeight="28dp"
+                android:textColor="@color/activity_create_pasword_color_of_button_text"
+
+                android:onClick="clickOnNumber"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Number6"
+
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:background="@drawable/activity_create_password_num_button"
@@ -196,7 +227,10 @@
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:textSize="24sp"
                 android:textFontWeight="600"
-                android:lineHeight="28dp"/>
+                android:lineHeight="28dp"
+                android:textColor="@color/activity_create_pasword_color_of_button_text"
+
+                android:onClick="clickOnNumber"/>
 
         </LinearLayout>
 
@@ -206,6 +240,8 @@
             android:layout_marginBottom="24dp">
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Number7"
+
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginRight="24dp"
@@ -216,9 +252,14 @@
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:textSize="24sp"
                 android:textFontWeight="600"
-                android:lineHeight="28dp"/>
+                android:lineHeight="28dp"
+                android:textColor="@color/activity_create_pasword_color_of_button_text"
+
+                android:onClick="clickOnNumber"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Number8"
+
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginRight="24dp"
@@ -229,9 +270,14 @@
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:textSize="24sp"
                 android:textFontWeight="600"
-                android:lineHeight="28dp"/>
+                android:lineHeight="28dp"
+                android:textColor="@color/activity_create_pasword_color_of_button_text"
+
+                android:onClick="clickOnNumber"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Number9"
+
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:background="@drawable/activity_create_password_num_button"
@@ -241,7 +287,10 @@
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:textSize="24sp"
                 android:textFontWeight="600"
-                android:lineHeight="28dp"/>
+                android:lineHeight="28dp"
+                android:textColor="@color/activity_create_pasword_color_of_button_text"
+
+                android:onClick="clickOnNumber"/>
 
         </LinearLayout>
 
@@ -256,22 +305,30 @@
                 android:background="#0000"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Number0"
+
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginRight="46dp"
                 android:background="@drawable/activity_create_password_num_button"
                 android:stateListAnimator="@null"
+
                 android:text="0"
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:textSize="24sp"
                 android:textFontWeight="600"
-                android:lineHeight="28dp"/>
+                android:lineHeight="28dp"
+                android:textColor="@color/activity_create_pasword_color_of_button_text"
+
+                android:onClick="clickOnNumber"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="35dp"
                 android:layout_height="24dp"
                 android:background="@drawable/del_icon"
-                android:stateListAnimator="@null"/>
+                android:stateListAnimator="@null"
+
+                android:onClick="clickOnBackButton"/>
 
         </LinearLayout>
 
