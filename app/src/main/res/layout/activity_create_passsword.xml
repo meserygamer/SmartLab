@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreatePassswordActivity"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#1A6FEE"
+        android:text="Пропустить"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textFontWeight="400"
+        android:textSize="15sp"
+        android:lineHeight="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/HandlerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Создайте пароль"
+            android:fontFamily="@font/sf_pro_display_bold"
+            android:textFontWeight="700"
+            android:textSize="24sp"
+            android:lineHeight="28dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#939396"
+            android:text="Для защиты ваших персональных данных"
+            android:fontFamily="@font/sf_pro_display_regular"
+            android:textFontWeight="400"
+            android:textSize="15sp"
+            android:lineHeight="20dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/DotLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/HandlerText"
+        android:layout_marginTop="56dp">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/activity_create_password_dot_back"
+            android:checked="false"
+            android:clickable="false"
+            android:theme="@style/СheckBoxStyle"
+            android:layout_marginRight="12dp"/>
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/activity_create_password_dot_back"
+            android:checked="false"
+            android:clickable="false"
+            android:theme="@style/СheckBoxStyle"
+            android:layout_marginRight="12dp"/>
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/activity_create_password_dot_back"
+            android:checked="false"
+            android:clickable="false"
+            android:theme="@style/СheckBoxStyle"
+            android:layout_marginRight="12dp"/>
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/activity_create_password_dot_back"
+            android:checked="false"
+            android:clickable="false"
+            android:theme="@style/СheckBoxStyle" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/DotLayout"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/activity_create_password_num_button"
+                android:stateListAnimator="@null"
+
+                android:text="1"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:textSize="24sp"
+                android:textFontWeight="600"
+                android:lineHeight="28dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/activity_create_password_num_button"
+                android:stateListAnimator="@null"
+
+                android:text="2"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:textSize="24sp"
+                android:textFontWeight="600"
+                android:lineHeight="28dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/activity_create_password_num_button"
+                android:stateListAnimator="@null"
+
+                android:text="3"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:textSize="24sp"
+                android:textFontWeight="600"
+                android:lineHeight="28dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/activity_create_password_num_button"
+                android:stateListAnimator="@null"
+
+                android:text="4"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:textSize="24sp"
+                android:textFontWeight="600"
+                android:lineHeight="28dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/activity_create_password_num_button"
+                android:stateListAnimator="@null"
+
+                android:text="5"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:textSize="24sp"
+                android:textFontWeight="600"
+                android:lineHeight="28dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/activity_create_password_num_button"
+                android:stateListAnimator="@null"
+
+                android:text="6"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:textSize="24sp"
+                android:textFontWeight="600"
+                android:lineHeight="28dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/activity_create_password_num_button"
+                android:stateListAnimator="@null"
+
+                android:text="7"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:textSize="24sp"
+                android:textFontWeight="600"
+                android:lineHeight="28dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/activity_create_password_num_button"
+                android:stateListAnimator="@null"
+
+                android:text="8"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:textSize="24sp"
+                android:textFontWeight="600"
+                android:lineHeight="28dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/activity_create_password_num_button"
+                android:stateListAnimator="@null"
+
+                android:text="9"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:textSize="24sp"
+                android:textFontWeight="600"
+                android:lineHeight="28dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="24dp"
+                android:background="#0000"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="46dp"
+                android:background="@drawable/activity_create_password_num_button"
+                android:stateListAnimator="@null"
+                android:text="0"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:textSize="24sp"
+                android:textFontWeight="600"
+                android:lineHeight="28dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="35dp"
+                android:layout_height="24dp"
+                android:background="@drawable/del_icon"
+                android:stateListAnimator="@null"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

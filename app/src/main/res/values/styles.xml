@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="СheckBoxStyle" parent="Base.Theme.AppCompat">
+        <item name="colorAccent">#1A6FEE</item>
+    </style>
+</resources>
