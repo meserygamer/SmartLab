@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreatePatientCard">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:text="Создание карты\nпациента"
+                android:textSize="24sp"
+                android:textFontWeight="700"
+                android:layout_marginRight="16dp"
+                android:fontFamily="@font/sf_pro_display_bold"
+                android:lineHeight="28dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#1A6FEE"
+                android:text="Пропустить"
+                android:textSize="15sp"
+                android:textFontWeight="400"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:lineHeight="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Без карты пациента вы не сможете заказать анализы."
+                android:textSize="14sp"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:textFontWeight="400"
+                android:lineHeight="20dp"
+                android:textColor="#939396"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="В картах пациентов будут храниться результаты\nанализов вас и ваших близких."
+                android:textSize="14sp"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:textFontWeight="400"
+                android:lineHeight="20dp"
+                android:textColor="#939396"/>
+
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            
+            <EditText
+                android:layout_width="335dp"
+                android:layout_height="48dp"
+                android:background="@drawable/activity_create_patient_card_edittext_back"
+                android:inputType="text"
+                android:hint="Имя"
+                android:textFontWeight="400"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:textSize="15sp"
+                android:lineHeight="20dp"
+                android:textColorHint="#939396"
+                android:paddingLeft="14dp"
+                android:layout_marginBottom="24dp"/>
+
+            <EditText
+                android:layout_width="335dp"
+                android:layout_height="48dp"
+                android:background="@drawable/activity_create_patient_card_edittext_back"
+                android:inputType="text"
+                android:hint="Отчество"
+                android:textFontWeight="400"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:textSize="15sp"
+                android:lineHeight="20dp"
+                android:textColorHint="#939396"
+                android:paddingLeft="14dp"
+                android:layout_marginBottom="24dp"/>
+
+            <EditText
+                android:layout_width="335dp"
+                android:layout_height="48dp"
+                android:inputType="text"
+                android:background="@drawable/activity_create_patient_card_edittext_back"
+                android:hint="Фамилия"
+                android:textFontWeight="400"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:textSize="15sp"
+                android:lineHeight="20dp"
+                android:textColorHint="#939396"
+                android:paddingLeft="14dp"
+                android:layout_marginBottom="24dp"/>
+
+            <EditText
+                android:layout_width="335dp"
+                android:layout_height="48dp"
+                android:ems="10"
+                android:inputType="date"
+                android:background="@drawable/activity_create_patient_card_edittext_back"
+                android:hint="Дата рождения"
+                android:textFontWeight="400"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:textSize="15sp"
+                android:lineHeight="20dp"
+                android:textColorHint="#939396"
+                android:paddingLeft="14dp"
+                android:layout_marginBottom="24dp"/>
+
+            
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
