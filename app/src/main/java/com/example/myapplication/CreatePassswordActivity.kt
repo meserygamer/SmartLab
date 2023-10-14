@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -56,6 +57,8 @@ class CreatePassswordActivity : AppCompatActivity() {
 
     private fun AddCharInPassword(Number : Char){
         if(password.length == 4){
+            var intent = Intent(this@CreatePassswordActivity, CreatePatientCard::class.java)
+            startActivity(intent)
             return;
         }
         password += Number
