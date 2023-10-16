@@ -79,6 +79,7 @@
             android:layout_marginBottom="48dp">
             
             <EditText
+                android:id="@+id/NameField"
                 android:layout_width="335dp"
                 android:layout_height="48dp"
                 android:background="@drawable/activity_create_patient_card_edittext_back"
@@ -93,6 +94,7 @@
                 android:layout_marginBottom="24dp"/>
 
             <EditText
+                android:id="@+id/PatronymicField"
                 android:layout_width="335dp"
                 android:layout_height="48dp"
                 android:background="@drawable/activity_create_patient_card_edittext_back"
@@ -107,6 +109,7 @@
                 android:layout_marginBottom="24dp"/>
 
             <EditText
+                android:id="@+id/SurnameField"
                 android:layout_width="335dp"
                 android:layout_height="48dp"
                 android:inputType="text"
@@ -121,6 +124,7 @@
                 android:layout_marginBottom="24dp"/>
 
             <EditText
+                android:id="@+id/BirthDayField"
                 android:layout_width="335dp"
                 android:layout_height="48dp"
                 android:ems="10"
