@@ -3,11 +3,16 @@ package com.example.myapplication
 import APINewsItem
 import CatalogItem
 import Common
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ActivityMainPageBinding
@@ -28,11 +33,14 @@ class MainPage : AppCompatActivity() {
 
     var catalogItems : MutableList<CatalogItem>? = null;
 
+    var categoriesList : MutableList<String> = mutableListOf("Популярные", "COVID", "Онкогенетические", "ЗОЖ")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainPageBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
         GetNewsFromAPIAndSetAdapter();
+        UpdateCategoryRecyclerView()
         GetCatalogItemsFromAPIAndSetAdapter();
     }
 
@@ -92,8 +100,16 @@ class MainPage : AppCompatActivity() {
     {
         binding!!.CatalogItemsRecyclerView.layoutManager = LinearLayoutManager(this
             , LinearLayoutManager.VERTICAL, false);
-        var CatalogItemsAdapter : CatalogRecyclerView = CatalogRecyclerView(catalogItems!!)
+        var CatalogItemsAdapter : CatalogRecyclerViewAdapter = CatalogRecyclerViewAdapter(catalogItems!!)
         binding!!.CatalogItemsRecyclerView.adapter = CatalogItemsAdapter
+    }
+
+    private fun UpdateCategoryRecyclerView()
+    {
+        binding!!.CategoryRecyclerView.layoutManager = LinearLayoutManager(this
+            , LinearLayoutManager.HORIZONTAL, false);
+        var CategoriesItemsAdapter : CategoriesRecyclerViewAdapter = CategoriesRecyclerViewAdapter(categoriesList)
+        binding!!.CategoryRecyclerView.adapter = CategoriesItemsAdapter
     }
 
 }
@@ -117,6 +133,13 @@ class NewsRecyclerAdapter(private val news: MutableList<APINewsItem>)
 
         var Item : APINewsItem = news[position];
 
+
+        var back : Drawable = ContextCompat.getDrawable(holder.binding.root.context, R.drawable.activity_main_page_news_background)!!
+        back.setLevel(position % 3)
+        /*var back : ImageView = ImageView(holder.binding.root.context)
+        back.setImageResource(R.drawable.activity_main_page_news_background)
+        back.setImageLevel(position % 3)*/
+        holder.binding.root.background = back
         holder.binding.HeaderNews.text = Item.name;
         holder.binding.DescriptionNews.text = Item.description;
         holder.binding.PriceNews.text = Item.price.toString();
@@ -133,29 +156,48 @@ class NewsViewHolder(val binding: ActivityMainPageNewsItemBinding) : RecyclerVie
 
 //region CatalogCategoriesRecyclerAdapter
 
-class CatalogCategoriesRecyclerAdapter(private val catalogCategories : MutableList<String>)
-    : RecyclerView.Adapter<CatalogCategoriesViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogCategoriesViewHolder {
-        TODO("Not yet implemented")
+class CategoriesRecyclerViewAdapter(private val catalogCategories : MutableList<String>)
+    : RecyclerView.Adapter<CategoriesViewHolder>() {
+
+    private var selectedCategory : CategoriesViewHolder? = null
+
+    //region RecyclerView.Adapter realize
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
+        var layoutInflater : LayoutInflater = LayoutInflater.from(parent.context)
+        var binding : ActivityMainPageCatalogCategoryItemBinding = ActivityMainPageCatalogCategoryItemBinding.inflate(layoutInflater, parent, false)
+        return CategoriesViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CatalogCategoriesViewHolder, position: Int) {
-        TODO("Not yet implemented")
+    override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
+        holder.binding.CategoryName.text = catalogCategories[position]
+        holder.binding.root.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(p0: View?) {
+                changeSelectedItem(holder)
+            }
+        })
     }
 
     override fun getItemCount(): Int {
         return catalogCategories.size
     }
+    //endregion
+
+    fun changeSelectedItem(newSelectItem : CategoriesViewHolder)
+    {
+        if(selectedCategory != null) selectedCategory!!.binding.root.isSelected = false
+        newSelectItem.binding.root.isSelected = true
+        selectedCategory = newSelectItem
+    }
 }
 
-class CatalogCategoriesViewHolder(val binding: ActivityMainPageCatalogCategoryItemBinding)
+class CategoriesViewHolder(val binding: ActivityMainPageCatalogCategoryItemBinding)
     : RecyclerView.ViewHolder(binding.root)
 
 //endregion
 
 //region CatalogRecyclerAdapter
 
-class CatalogRecyclerView(private val AllCatalogItems : MutableList<CatalogItem>) : RecyclerView.Adapter<CatalogViewHolder>() {
+class CatalogRecyclerViewAdapter(private val AllCatalogItems : MutableList<CatalogItem>) : RecyclerView.Adapter<CatalogViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ActivityMainPageCatalogItemBinding.inflate(inflater, parent, false)
