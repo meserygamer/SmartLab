@@ -3,7 +3,6 @@ package com.example.myapplication
 import APINewsItem
 import CatalogItem
 import Common
-import android.app.ActionBar.LayoutParams
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -13,8 +12,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ActivityMainPageBinding
@@ -22,12 +22,20 @@ import com.example.myapplication.databinding.ActivityMainPageCatalogCategoryItem
 import com.example.myapplication.databinding.ActivityMainPageCatalogItemBinding
 import com.example.myapplication.databinding.ActivityMainPageNewsItemBinding
 import com.squareup.picasso.Picasso
+import main_page_classes.CatalogRecyclerViewAdapter
+import main_page_classes.CategoriesRecyclerViewAdapter
+import main_page_classes.MainPageStateMachine
+import main_page_classes.NewsRecyclerAdapter
+import main_page_classes.ProductInTheBasket
+import main_page_classes.ProductNotInTheBasket
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
 class MainPage : AppCompatActivity() {
+
+    val mainPageState : MainPageStateMachine = MainPageStateMachine()
 
     var binding : ActivityMainPageBinding? = null;
 
@@ -37,49 +45,31 @@ class MainPage : AppCompatActivity() {
 
     var categoriesList : MutableList<String> = mutableListOf("Популярные", "COVID", "Онкогенетические", "ЗОЖ")
 
-    var IsShowingGoToBasketButton : Boolean? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainPageBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
+        SetAllAdapter()
+        /*mainPageState.SetInstance(ProductInTheBasket(binding!!))
+        updatePageWithState()*/
+    }
+
+    fun updatePageWithState()
+    {
+        binding!!.BasketButton.visibility = mainPageState.GetInstance().BasketButtonVisibile
+        binding!!.MainInfoScrollView.layoutParams = mainPageState.GetInstance().MainInfoScrollViewLayoutParams
+        binding!!.CatalogItemsRecyclerView.layoutParams = mainPageState.GetInstance().CatalogItemsRecyclerViewLayoutParams
+    }
+
+    //region recyclerViews builders methods
+
+    private fun SetAllAdapter()
+    {
         GetNewsFromAPIAndSetAdapter();
         UpdateCategoryRecyclerView()
         GetCatalogItemsFromAPIAndSetAdapter();
     }
 
-    fun showGoToBasket()
-    {
-        if(IsShowingGoToBasketButton == true)
-        {
-            return
-        }
-        if(binding != null)
-        {
-            binding!!.BasketButton.visibility = View.VISIBLE
-            var test : android.view.ViewGroup.LayoutParams = binding!!.MainInfoScrollView.getLayoutParams()!!;
-            test.height = binding!!.MainInfoScrollView.height - 104
-            IsShowingGoToBasketButton = true;
-        }
-    }
-
-    fun hideGoToBasket()
-    {
-        if(IsShowingGoToBasketButton == null || IsShowingGoToBasketButton == false)
-        {
-            IsShowingGoToBasketButton = false;
-            return
-        }
-        if(binding != null)
-        {
-            binding!!.BasketButton.visibility = View.GONE
-            var test : android.view.ViewGroup.LayoutParams = binding!!.MainInfoScrollView.getLayoutParams()!!;
-            test.height += binding!!.MainInfoScrollView.height + 104
-            IsShowingGoToBasketButton = false;
-        }
-    }
-
-    //region recyclerViews builders methods
     private fun GetNewsFromAPIAndSetAdapter()
     {
         Common.retrofitService.GetAllNewsForUser().enqueue(object : Callback<MutableList<APINewsItem>>
@@ -150,114 +140,3 @@ class MainPage : AppCompatActivity() {
 
     //endregion
 }
-
-//region NewsRecyclerAdapter
-class NewsRecyclerAdapter(private val news: MutableList<APINewsItem>)
-    : RecyclerView.Adapter<NewsViewHolder>()
-{
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ActivityMainPageNewsItemBinding.inflate(inflater, parent, false)
-        return NewsViewHolder(binding)
-    }
-
-    override fun getItemCount(): Int {
-        return news.size;
-    }
-
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-
-        var Item : APINewsItem = news[position];
-
-
-        var back : Drawable = ContextCompat.getDrawable(holder.binding.root.context, R.drawable.activity_main_page_news_background)!!
-        back.setLevel(position % 3)
-        /*var back : ImageView = ImageView(holder.binding.root.context)
-        back.setImageResource(R.drawable.activity_main_page_news_background)
-        back.setImageLevel(position % 3)*/
-        holder.binding.root.background = back
-        holder.binding.HeaderNews.text = Item.name;
-        holder.binding.DescriptionNews.text = Item.description;
-        holder.binding.PriceNews.text = Item.price.toString();
-        if (Item.image == null)
-        {
-            return;
-        }
-        Picasso.get().load(Item.image).into(holder.binding.BackgroundImage);
-    }
-}
-
-class NewsViewHolder(val binding: ActivityMainPageNewsItemBinding) : RecyclerView.ViewHolder(binding.root)
-//endregion
-
-//region CatalogCategoriesRecyclerAdapter
-
-class CategoriesRecyclerViewAdapter(private val catalogCategories : MutableList<String>)
-    : RecyclerView.Adapter<CategoriesViewHolder>() {
-
-    private var selectedCategory : CategoriesViewHolder? = null
-
-    //region RecyclerView.Adapter realize
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
-        var layoutInflater : LayoutInflater = LayoutInflater.from(parent.context)
-        var binding : ActivityMainPageCatalogCategoryItemBinding = ActivityMainPageCatalogCategoryItemBinding.inflate(layoutInflater, parent, false)
-        return CategoriesViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
-        holder.binding.CategoryName.text = catalogCategories[position]
-        holder.binding.root.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                changeSelectedItem(holder)
-            }
-        })
-    }
-
-    override fun getItemCount(): Int {
-        return catalogCategories.size
-    }
-    //endregion
-
-    fun changeSelectedItem(newSelectItem : CategoriesViewHolder)
-    {
-        if(selectedCategory != null) selectedCategory!!.binding.root.isSelected = false
-        newSelectItem.binding.root.isSelected = true
-        selectedCategory = newSelectItem
-    }
-}
-
-class CategoriesViewHolder(val binding: ActivityMainPageCatalogCategoryItemBinding)
-    : RecyclerView.ViewHolder(binding.root)
-
-//endregion
-
-//region CatalogRecyclerAdapter
-
-class CatalogRecyclerViewAdapter(private val AllCatalogItems : MutableList<CatalogItem>) : RecyclerView.Adapter<CatalogViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ActivityMainPageCatalogItemBinding.inflate(inflater, parent, false)
-        return CatalogViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: CatalogViewHolder, position: Int) {
-        var bindingCatalogItem : CatalogItem = AllCatalogItems[position]
-
-        if(bindingCatalogItem.name != null)
-        {
-            holder.binding.CatalogItemName.text = bindingCatalogItem.name!!
-            holder.binding.CatalogItemTimeResult.text = bindingCatalogItem.timeResul!!
-            holder.binding.CatalogItemPrice.text = bindingCatalogItem.price.toString()
-        }
-
-    }
-
-    override fun getItemCount(): Int {
-        return AllCatalogItems.size
-    }
-}
-
-class CatalogViewHolder(val binding: ActivityMainPageCatalogItemBinding) : RecyclerView.ViewHolder(binding.root)
-
-//endregion
