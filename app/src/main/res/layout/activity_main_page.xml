@@ -1,40 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".MainPage"
-    android:rowCount="3">
-
-    <!--Панель поиска-->
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/activity_main_page_search_edittext_back"
-        android:fontFamily="@font/sf_pro_display_regular"
-        android:hint="Искать анализы"
-        android:lineHeight="20dp"
-        android:paddingLeft="42dp"
-        android:paddingRight="15dp"
-        android:textColorHint="#939396"
-        android:textFontWeight="400"
-        android:textSize="16sp"/>
+    tools:context=".MainPage">
 
     <!--Основное содержимое-->
     <ScrollView
-        android:layout_row="1"
-        android:layout_column="0"
+        android:id="@+id/MainInfoScrollView"
+        android:layout_marginTop="104dp"
+        android:layout_marginBottom="74dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="178dp">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editText">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -45,9 +26,9 @@
                 android:id="@+id/PromotionsAndNews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:orientation="vertical">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/textView3"
@@ -59,8 +40,7 @@
                     android:text="Акции и новости"
                     android:textColor="#939396"
                     android:textFontWeight="600"
-                    android:textSize="17dp"
-                    />
+                    android:textSize="17dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/StockRecycleView"
@@ -76,10 +56,11 @@
 
             <!--Каталог анализов-->
             <LinearLayout
+                android:id="@+id/CatalogLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/PromotionsAndNews"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/PromotionsAndNews">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -91,8 +72,8 @@
                     android:text="Каталог анализов"
                     android:textColor="#939396"
                     android:textFontWeight="600"
-                    android:textSize="17dp"/>
-                
+                    android:textSize="17dp" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/CategoryRecyclerView"
                     android:layout_width="match_parent"
@@ -108,20 +89,94 @@
                     android:layout_marginTop="24dp">
 
                 </androidx.recyclerview.widget.RecyclerView>
-                
+
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
+    <!--Корзина-->
+    <FrameLayout
+        android:id="@+id/BasketButton"
+        android:layout_width="match_parent"
+        android:layout_height="104dp"
+        android:paddingVertical="24dp"
+        android:paddingHorizontal="20dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/NavigatePanel">
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="В корзину"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="52dp"
+                    android:fontFamily="@font/sf_pro_display_semibold"
+                    android:textFontWeight="600"
+                    android:textSize="17dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:background="@drawable/activity_main_page_goto_basket"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/OrderPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:gravity="center"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:textFontWeight="600"
+                android:textSize="17dp"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/white"
+                android:text="500 ₽"/>
+            
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+    </FrameLayout>
+
+    <!--Панель поиска-->
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/activity_main_page_search_edittext_back"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:hint="Искать анализы"
+        android:lineHeight="20dp"
+        android:paddingLeft="42dp"
+        android:paddingRight="15dp"
+        android:textColorHint="#939396"
+        android:textFontWeight="400"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <!--Панель навигации-->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/NavigatePanel"
         android:layout_width="match_parent"
         android:layout_height="74dp"
-        android:layout_row="2"
-        android:layout_column="0"
-        android:layout_marginTop="-178dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -236,4 +291,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</GridLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

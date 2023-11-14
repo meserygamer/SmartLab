@@ -3,12 +3,14 @@ package com.example.myapplication
 import APINewsItem
 import CatalogItem
 import Common
+import android.app.ActionBar.LayoutParams
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -35,6 +37,8 @@ class MainPage : AppCompatActivity() {
 
     var categoriesList : MutableList<String> = mutableListOf("Популярные", "COVID", "Онкогенетические", "ЗОЖ")
 
+    var IsShowingGoToBasketButton : Boolean? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainPageBinding.inflate(layoutInflater)
@@ -44,6 +48,38 @@ class MainPage : AppCompatActivity() {
         GetCatalogItemsFromAPIAndSetAdapter();
     }
 
+    fun showGoToBasket()
+    {
+        if(IsShowingGoToBasketButton == true)
+        {
+            return
+        }
+        if(binding != null)
+        {
+            binding!!.BasketButton.visibility = View.VISIBLE
+            var test : android.view.ViewGroup.LayoutParams = binding!!.MainInfoScrollView.getLayoutParams()!!;
+            test.height = binding!!.MainInfoScrollView.height - 104
+            IsShowingGoToBasketButton = true;
+        }
+    }
+
+    fun hideGoToBasket()
+    {
+        if(IsShowingGoToBasketButton == null || IsShowingGoToBasketButton == false)
+        {
+            IsShowingGoToBasketButton = false;
+            return
+        }
+        if(binding != null)
+        {
+            binding!!.BasketButton.visibility = View.GONE
+            var test : android.view.ViewGroup.LayoutParams = binding!!.MainInfoScrollView.getLayoutParams()!!;
+            test.height += binding!!.MainInfoScrollView.height + 104
+            IsShowingGoToBasketButton = false;
+        }
+    }
+
+    //region recyclerViews builders methods
     private fun GetNewsFromAPIAndSetAdapter()
     {
         Common.retrofitService.GetAllNewsForUser().enqueue(object : Callback<MutableList<APINewsItem>>
@@ -112,6 +148,7 @@ class MainPage : AppCompatActivity() {
         binding!!.CategoryRecyclerView.adapter = CategoriesItemsAdapter
     }
 
+    //endregion
 }
 
 //region NewsRecyclerAdapter
