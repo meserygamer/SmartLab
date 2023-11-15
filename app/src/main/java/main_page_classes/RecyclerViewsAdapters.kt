@@ -3,9 +3,11 @@ package main_page_classes
 import APINewsItem
 import CatalogItem
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -36,9 +38,6 @@ class NewsRecyclerAdapter(private val news: MutableList<APINewsItem>)
 
         var back : Drawable = ContextCompat.getDrawable(holder.binding.root.context, R.drawable.activity_main_page_news_background)!!
         back.setLevel(position % 3)
-        /*var back : ImageView = ImageView(holder.binding.root.context)
-        back.setImageResource(R.drawable.activity_main_page_news_background)
-        back.setImageLevel(position % 3)*/
         holder.binding.root.background = back
         holder.binding.HeaderNews.text = Item.name;
         holder.binding.DescriptionNews.text = Item.description;
@@ -97,7 +96,17 @@ class CategoriesViewHolder(val binding: ActivityMainPageCatalogCategoryItemBindi
 
 //region CatalogRecyclerAdapter
 
-class CatalogRecyclerViewAdapter(private val AllCatalogItems : MutableList<CatalogItem>) : RecyclerView.Adapter<CatalogViewHolder>() {
+class CatalogRecyclerViewAdapter(private val AllCatalogItems : MutableList<CatalogItem>,
+                                 private val FormingOrder : Order)
+    : RecyclerView.Adapter<CatalogViewHolder>() {
+
+    init {
+        FormingOrder.NotifyAboutOrderCompositionWasChanged.plusAssign(
+            { ChangedItem ->
+                notifyItemChanged(AllCatalogItems.indexOf(ChangedItem));}
+        )
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ActivityMainPageCatalogItemBinding.inflate(inflater, parent, false)
@@ -112,6 +121,30 @@ class CatalogRecyclerViewAdapter(private val AllCatalogItems : MutableList<Catal
             holder.binding.CatalogItemName.text = bindingCatalogItem.name!!
             holder.binding.CatalogItemTimeResult.text = bindingCatalogItem.timeResul!!
             holder.binding.CatalogItemPrice.text = bindingCatalogItem.price.toString()
+            if(FormingOrder.SearchItemInOrder(bindingCatalogItem))
+            {
+                holder.binding.AddButton.isSelected = true
+                holder.binding.AddButton.text = "Убрать";
+            }
+            else
+            {
+                holder.binding.AddButton.isSelected = false
+                holder.binding.AddButton.text = "Добавить";
+            }
+            holder.binding.AddButton.setOnClickListener(object : View.OnClickListener
+            {
+                override fun onClick(p0: View?) {
+                    if(p0!!.isSelected)
+                    {
+                        FormingOrder.RemoveItemFromOrder(bindingCatalogItem);
+                    }
+                    else
+                    {
+                        FormingOrder.AddItemInOrder(bindingCatalogItem)
+                    }
+                }
+
+            })
         }
 
     }
@@ -119,6 +152,7 @@ class CatalogRecyclerViewAdapter(private val AllCatalogItems : MutableList<Catal
     override fun getItemCount(): Int {
         return AllCatalogItems.size
     }
+
 }
 
 class CatalogViewHolder(val binding: ActivityMainPageCatalogItemBinding) : RecyclerView.ViewHolder(binding.root)

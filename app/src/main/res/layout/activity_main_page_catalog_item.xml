@@ -56,12 +56,13 @@
                 android:textSize="17sp"/>
             
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/AddButton"
                 android:layout_width="96dp"
                 android:layout_height="40dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/white"
+                android:textColor="@color/activity_main_page_add_to_basket_button_foreground"
                 android:fontFamily="@font/sf_pro_display_medium"
                 android:textFontWeight="600"
                 android:textSize="14sp"

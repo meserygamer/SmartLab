@@ -16,10 +16,8 @@ interface IMainPageState
     public val BasketButtonVisibile : Int
 }
 
-class MainPageStateMachine()
+class MainPageStateMachine(private var _instance : IMainPageState)
 {
-    private var _instance : IMainPageState? = null
-
     fun SetInstance(instance : IMainPageState)
     {
         this._instance = instance;
@@ -27,7 +25,7 @@ class MainPageStateMachine()
 
     fun GetInstance() : IMainPageState
     {
-        return _instance!!
+        return _instance
     }
 }
 

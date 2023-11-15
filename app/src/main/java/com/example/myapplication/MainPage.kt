@@ -6,6 +6,7 @@ import Common
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ import main_page_classes.CatalogRecyclerViewAdapter
 import main_page_classes.CategoriesRecyclerViewAdapter
 import main_page_classes.MainPageStateMachine
 import main_page_classes.NewsRecyclerAdapter
+import main_page_classes.Order
 import main_page_classes.ProductInTheBasket
 import main_page_classes.ProductNotInTheBasket
 import retrofit2.Call
@@ -35,9 +37,9 @@ import retrofit2.Response
 
 class MainPage : AppCompatActivity() {
 
-    val mainPageState : MainPageStateMachine = MainPageStateMachine()
-
     var binding : ActivityMainPageBinding? = null;
+
+    lateinit var mainPageState : MainPageStateMachine;
 
     var news : MutableList<APINewsItem>? = null;
 
@@ -45,13 +47,29 @@ class MainPage : AppCompatActivity() {
 
     var categoriesList : MutableList<String> = mutableListOf("Популярные", "COVID", "Онкогенетические", "ЗОЖ")
 
+    var FormingOrder : Order = Order()
+
+    init {
+        FormingOrder.NotifyAboutOrderCompositionWasChanged.plusAssign { item ->
+                if (FormingOrder.GetItemCount() > 0 && (mainPageState.GetInstance() is ProductNotInTheBasket)) {
+                    mainPageState.SetInstance(ProductInTheBasket(binding!!))
+                    updatePageWithState()
+                }
+                if (FormingOrder.GetItemCount() == 0 && (mainPageState.GetInstance() is ProductInTheBasket))
+                {
+                    mainPageState.SetInstance(ProductNotInTheBasket(binding!!))
+                    updatePageWithState()
+                }
+                binding!!.OrderPrice.text = FormingOrder.SummaryCost.toString() + " ₽"
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainPageBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
         SetAllAdapter()
-        /*mainPageState.SetInstance(ProductInTheBasket(binding!!))
-        updatePageWithState()*/
+        mainPageState = MainPageStateMachine(ProductNotInTheBasket(binding!!))
     }
 
     fun updatePageWithState()
@@ -126,7 +144,7 @@ class MainPage : AppCompatActivity() {
     {
         binding!!.CatalogItemsRecyclerView.layoutManager = LinearLayoutManager(this
             , LinearLayoutManager.VERTICAL, false);
-        var CatalogItemsAdapter : CatalogRecyclerViewAdapter = CatalogRecyclerViewAdapter(catalogItems!!)
+        var CatalogItemsAdapter : CatalogRecyclerViewAdapter = CatalogRecyclerViewAdapter(catalogItems!!, FormingOrder)
         binding!!.CatalogItemsRecyclerView.adapter = CatalogItemsAdapter
     }
 
