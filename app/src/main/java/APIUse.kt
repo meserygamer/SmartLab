@@ -3,6 +3,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
+import java.io.Serializable
 
 data class APINewsItem(
     val description: String?,
@@ -21,7 +22,7 @@ data class CatalogItem(
     val preparation: String?,
     val price: Int,
     val timeResul: String?
-)
+) : Serializable
 
 interface APIIterface
 {

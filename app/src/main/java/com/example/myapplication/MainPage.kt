@@ -70,6 +70,7 @@ class MainPage : AppCompatActivity() {
         setContentView(binding!!.root)
         SetAllAdapter()
         mainPageState = MainPageStateMachine(ProductNotInTheBasket(binding!!))
+
     }
 
     fun updatePageWithState()
@@ -77,6 +78,18 @@ class MainPage : AppCompatActivity() {
         binding!!.BasketButton.visibility = mainPageState.GetInstance().BasketButtonVisibile
         binding!!.MainInfoScrollView.layoutParams = mainPageState.GetInstance().MainInfoScrollViewLayoutParams
         binding!!.CatalogItemsRecyclerView.layoutParams = mainPageState.GetInstance().CatalogItemsRecyclerViewLayoutParams
+    }
+
+    fun ShowBottomSheetDialogFragment(catalogItemID : Int)
+    {
+        var showingFragment = BottomFragmentCatalogItem()
+        var selectedItem = Bundle()
+        selectedItem.putSerializable("item", catalogItems!![catalogItemID])
+        showingFragment.arguments = selectedItem;
+        Log.println(Log.INFO, "arg", showingFragment.arguments.toString())
+        showingFragment.cancelEvent.plusAssign { binding!!.MainPageBlackout.visibility = View.GONE}
+        showingFragment.show(supportFragmentManager, "tag");
+        binding!!.MainPageBlackout.visibility = View.VISIBLE;
     }
 
     //region recyclerViews builders methods
@@ -144,7 +157,9 @@ class MainPage : AppCompatActivity() {
     {
         binding!!.CatalogItemsRecyclerView.layoutManager = LinearLayoutManager(this
             , LinearLayoutManager.VERTICAL, false);
-        var CatalogItemsAdapter : CatalogRecyclerViewAdapter = CatalogRecyclerViewAdapter(catalogItems!!, FormingOrder)
+        var CatalogItemsAdapter : CatalogRecyclerViewAdapter = CatalogRecyclerViewAdapter(catalogItems!!,
+                                                                                          FormingOrder, supportFragmentManager)
+        CatalogItemsAdapter.itemWasSelected.plusAssign(this::ShowBottomSheetDialogFragment)
         binding!!.CatalogItemsRecyclerView.adapter = CatalogItemsAdapter
     }
 

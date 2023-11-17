@@ -1,20 +1,22 @@
 package main_page_classes
 
 import APINewsItem
+import Action_Event
 import CatalogItem
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.BottomFragmentCatalogItem
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMainPageCatalogCategoryItemBinding
 import com.example.myapplication.databinding.ActivityMainPageCatalogItemBinding
 import com.example.myapplication.databinding.ActivityMainPageNewsItemBinding
 import com.squareup.picasso.Picasso
+
 
 //region NewsRecyclerAdapter
 class NewsRecyclerAdapter(private val news: MutableList<APINewsItem>)
@@ -97,8 +99,11 @@ class CategoriesViewHolder(val binding: ActivityMainPageCatalogCategoryItemBindi
 //region CatalogRecyclerAdapter
 
 class CatalogRecyclerViewAdapter(private val AllCatalogItems : MutableList<CatalogItem>,
-                                 private val FormingOrder : Order)
+                                 private val FormingOrder : Order,
+                                 private val supportFragmentManager: FragmentManager)
     : RecyclerView.Adapter<CatalogViewHolder>() {
+
+    public val itemWasSelected : Action_Event<Int> = Action_Event()
 
     init {
         FormingOrder.NotifyAboutOrderCompositionWasChanged.plusAssign(
@@ -144,6 +149,12 @@ class CatalogRecyclerViewAdapter(private val AllCatalogItems : MutableList<Catal
                     }
                 }
 
+            })
+            holder.binding.root.setOnClickListener(object : View.OnClickListener
+            {
+                override fun onClick(p0: View?) {
+                    itemWasSelected.invoke(position)
+                }
             })
         }
 
