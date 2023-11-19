@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import Action_Event
 import CatalogItem
+import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
@@ -39,6 +40,11 @@ class BottomFragmentCatalogItem : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.CloseBottomSheetDialogButton.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(p0: View?) {
+                dismiss()
+            }
+        })
         Log.println(Log.WARN, "Debug", requireArguments().toString())
         var item : CatalogItem = requireArguments().getSerializable("item") as CatalogItem
         binding.DialogItemName.text = if (item.name == null) "" else item.name;
@@ -49,10 +55,17 @@ class BottomFragmentCatalogItem : BottomSheetDialogFragment() {
         binding.DialogItemButton.text = "Добавить за " + item.price + " ₽";
     }
 
+    override fun dismiss() {
+        cancelEvent.invoke(0);
+        super.dismiss()
+    }
+
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
         cancelEvent.invoke(0);
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

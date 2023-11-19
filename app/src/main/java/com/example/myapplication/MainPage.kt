@@ -28,6 +28,7 @@ import main_page_classes.CategoriesRecyclerViewAdapter
 import main_page_classes.MainPageStateMachine
 import main_page_classes.NewsRecyclerAdapter
 import main_page_classes.Order
+import main_page_classes.PackingOrder
 import main_page_classes.ProductInTheBasket
 import main_page_classes.ProductNotInTheBasket
 import retrofit2.Call
@@ -70,7 +71,6 @@ class MainPage : AppCompatActivity() {
         setContentView(binding!!.root)
         SetAllAdapter()
         mainPageState = MainPageStateMachine(ProductNotInTheBasket(binding!!))
-
     }
 
     fun updatePageWithState()
@@ -87,7 +87,9 @@ class MainPage : AppCompatActivity() {
         selectedItem.putSerializable("item", catalogItems!![catalogItemID])
         showingFragment.arguments = selectedItem;
         Log.println(Log.INFO, "arg", showingFragment.arguments.toString())
-        showingFragment.cancelEvent.plusAssign { binding!!.MainPageBlackout.visibility = View.GONE}
+        showingFragment.cancelEvent.plusAssign {
+            binding!!.MainPageBlackout.visibility = View.GONE
+        }
         showingFragment.show(supportFragmentManager, "tag");
         binding!!.MainPageBlackout.visibility = View.VISIBLE;
     }
