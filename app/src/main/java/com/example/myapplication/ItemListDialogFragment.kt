@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle.Event
 import com.example.myapplication.databinding.BottomFragmentCatalogItemBinding
+import main_page_classes.PackingOrder
 
 class BottomFragmentCatalogItem : BottomSheetDialogFragment() {
 
@@ -23,11 +24,13 @@ class BottomFragmentCatalogItem : BottomSheetDialogFragment() {
 
     public val cancelEvent : Action_Event<Int> = Action_Event()
 
-
     private val binding get() = _binding!!
+
     override fun getTheme(): Int {
         return R.style.AppBottomSheetDialogTheme
     }
+
+    public lateinit var ShowingItem : CatalogItem
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,13 +49,45 @@ class BottomFragmentCatalogItem : BottomSheetDialogFragment() {
             }
         })
         Log.println(Log.WARN, "Debug", requireArguments().toString())
-        var item : CatalogItem = requireArguments().getSerializable("item") as CatalogItem
-        binding.DialogItemName.text = if (item.name == null) "" else item.name;
-        binding.DialogItemDescription.text = if(item.description == null) "" else item.description;
-        binding.DialogItemPrepare.text = if(item.preparation == null) "" else item.preparation;
-        binding.BiomaterialField.text = if(item.bio == null) "" else item.bio;
-        binding.ResultTimer.text = if(item.timeResul == null) "" else item.timeResul;
-        binding.DialogItemButton.text = "Добавить за " + item.price + " ₽";
+        ShowingItem = requireArguments().getSerializable("item") as CatalogItem
+        binding.DialogItemName.text = if (ShowingItem.name == null) "" else ShowingItem.name;
+        binding.DialogItemDescription.text = if(ShowingItem.description == null) "" else ShowingItem.description;
+        binding.DialogItemPrepare.text = if(ShowingItem.preparation == null) "" else ShowingItem.preparation;
+        binding.BiomaterialField.text = if(ShowingItem.bio == null) "" else ShowingItem.bio;
+        binding.ResultTimer.text = if(ShowingItem.timeResul == null) "" else ShowingItem.timeResul;
+        if(PackingOrder.GetPackingOrder()!!.SearchItemInOrder(ShowingItem))
+        {
+            binding.DialogItemButton.text = "Убрать из заказа";
+            binding.DialogItemButton.isSelected = true;
+        }
+        else
+        {
+            binding.DialogItemButton.text = "Добавить за " + ShowingItem.price + " ₽";
+            binding.DialogItemButton.isSelected = false;
+        }
+        binding.DialogItemButton.setOnClickListener(object : View.OnClickListener{
+
+            override fun onClick(p0: View?) {
+                AddInBucketButtonAction()
+            }
+
+        })
+    }
+
+    fun AddInBucketButtonAction()
+    {
+        if(binding.DialogItemButton.isSelected)
+        {
+            PackingOrder.GetPackingOrder().RemoveItemFromOrder(ShowingItem);
+            binding.DialogItemButton.text = "Добавить за " + ShowingItem.price + " ₽";
+            binding.DialogItemButton.isSelected = false;
+        }
+        else
+        {
+            PackingOrder.GetPackingOrder().AddItemInOrder(ShowingItem)
+            binding.DialogItemButton.text = "Убрать из заказа";
+            binding.DialogItemButton.isSelected = true;
+        }
     }
 
     override fun dismiss() {
@@ -64,8 +99,6 @@ class BottomFragmentCatalogItem : BottomSheetDialogFragment() {
         super.onCancel(dialog)
         cancelEvent.invoke(0);
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

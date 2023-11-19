@@ -1,6 +1,7 @@
 package main_page_classes
 
 import CatalogItem
+import android.util.Log
 
 interface IOnOrderListner {
     fun onOrderCompositionChanged(Item : CatalogItem)
@@ -9,10 +10,13 @@ interface IOnOrderListner {
 class Order {
 
     var SummaryCost : Int = 0
-        public get() = field;
-        private set(value)
-        {
-            field = value
+        public get(){
+            var SummaryCost : Int = 0;
+            for (item in OrderComposition.keys)
+            {
+                SummaryCost += item.price * OrderComposition.getValue(item);
+            }
+            return SummaryCost;
         }
 
     var OrderComposition : MutableMap<CatalogItem, Int> = HashMap<CatalogItem, Int>()
@@ -32,9 +36,9 @@ class Order {
     public fun AddItemInOrder(addingItem : CatalogItem)
     {
         OrderComposition.put(addingItem, 1);
-        SummaryCost += addingItem.price;
         if(onOrderListner != null)
         {
+            Log.println(Log.DEBUG, "Debug", onOrderListner.toString())
             onOrderListner!!.onOrderCompositionChanged(addingItem)
         }
     }
@@ -45,7 +49,6 @@ class Order {
 
         if(itemCount != null)
         {
-            SummaryCost -= removingItem.price * itemCount
             if(onOrderListner != null) {
                 onOrderListner!!.onOrderCompositionChanged(removingItem)
             }
@@ -70,7 +73,7 @@ class OnOrderMultipleListner : IOnOrderListner {
     override fun onOrderCompositionChanged(Item: CatalogItem) {
         for (item in ListnersCollection)
         {
-            onOrderCompositionChanged(Item);
+            item.onOrderCompositionChanged(Item);
         }
     }
 

@@ -224,7 +224,7 @@
                 android:lineHeight="24dp"
                 android:text="Добавить за 690 ₽"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/activity_main_page_add_to_basket_button_foreground"
                 android:textFontWeight="600"
                 android:textSize="17sp" />
 
