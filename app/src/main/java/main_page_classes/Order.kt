@@ -1,7 +1,10 @@
 package main_page_classes
 
-import Action_Event
 import CatalogItem
+
+interface IOnOrderListner {
+    fun onOrderCompositionChanged(Item : CatalogItem)
+}
 
 class Order {
 
@@ -19,14 +22,21 @@ class Order {
             field = value
         }
 
-    val NotifyAboutOrderCompositionWasChanged : Action_Event<CatalogItem> = Action_Event()
-        public get() = field
+    var onOrderListner : IOnOrderListner? = null
+        public get() = field;
+        public set(value)
+        {
+            field = value;
+        }
 
     public fun AddItemInOrder(addingItem : CatalogItem)
     {
         OrderComposition.put(addingItem, 1);
         SummaryCost += addingItem.price;
-        NotifyAboutOrderCompositionWasChanged.invoke(addingItem)
+        if(onOrderListner != null)
+        {
+            onOrderListner!!.onOrderCompositionChanged(addingItem)
+        }
     }
 
     public fun RemoveItemFromOrder(removingItem : CatalogItem)
@@ -36,7 +46,9 @@ class Order {
         if(itemCount != null)
         {
             SummaryCost -= removingItem.price * itemCount
-            NotifyAboutOrderCompositionWasChanged.invoke(removingItem)
+            if(onOrderListner != null) {
+                onOrderListner!!.onOrderCompositionChanged(removingItem)
+            }
         }
     }
 
@@ -49,4 +61,29 @@ class Order {
     {
         return OrderComposition.count()
     }
+}
+
+class OnOrderMultipleListner : IOnOrderListner {
+
+    val ListnersCollection : MutableList<IOnOrderListner> = mutableListOf<IOnOrderListner>();
+
+    override fun onOrderCompositionChanged(Item: CatalogItem) {
+        for (item in ListnersCollection)
+        {
+            onOrderCompositionChanged(Item);
+        }
+    }
+
+    public fun AddOnOrderListner(AddingLisner : IOnOrderListner) : Boolean {
+        return ListnersCollection.add(AddingLisner);
+    }
+
+    public fun RemoveOnOrderListner(AddingLisner : IOnOrderListner) : Boolean{
+        return ListnersCollection.remove(AddingLisner)
+    }
+
+    public fun ClearOnOrderListnersCollection() {
+        ListnersCollection.clear()
+    }
+
 }

@@ -25,8 +25,11 @@ import com.example.myapplication.databinding.ActivityMainPageNewsItemBinding
 import com.squareup.picasso.Picasso
 import main_page_classes.CatalogRecyclerViewAdapter
 import main_page_classes.CategoriesRecyclerViewAdapter
+import main_page_classes.IOnChangedSelectedItemListner
+import main_page_classes.IOnOrderListner
 import main_page_classes.MainPageStateMachine
 import main_page_classes.NewsRecyclerAdapter
+import main_page_classes.OnOrderMultipleListner
 import main_page_classes.Order
 import main_page_classes.PackingOrder
 import main_page_classes.ProductInTheBasket
@@ -36,7 +39,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainPage : AppCompatActivity() {
+class MainPage : AppCompatActivity(), IOnChangedSelectedItemListner<Int>, IOnOrderListner {
 
     var binding : ActivityMainPageBinding? = null;
 
@@ -48,25 +51,38 @@ class MainPage : AppCompatActivity() {
 
     var categoriesList : MutableList<String> = mutableListOf("Популярные", "COVID", "Онкогенетические", "ЗОЖ")
 
-    var FormingOrder : Order = Order()
 
-    init {
-        FormingOrder.NotifyAboutOrderCompositionWasChanged.plusAssign { item ->
-                if (FormingOrder.GetItemCount() > 0 && (mainPageState.GetInstance() is ProductNotInTheBasket)) {
-                    mainPageState.SetInstance(ProductInTheBasket(binding!!))
-                    updatePageWithState()
-                }
-                if (FormingOrder.GetItemCount() == 0 && (mainPageState.GetInstance() is ProductInTheBasket))
-                {
-                    mainPageState.SetInstance(ProductNotInTheBasket(binding!!))
-                    updatePageWithState()
-                }
-                binding!!.OrderPrice.text = FormingOrder.SummaryCost.toString() + " ₽"
+    override fun onOrderCompositionChanged(Item: CatalogItem) {
+        if (PackingOrder.GetPackingOrder().GetItemCount() > 0 && (mainPageState.GetInstance() is ProductNotInTheBasket)) {
+            mainPageState.SetInstance(ProductInTheBasket(binding!!))
+            updatePageWithState()
         }
+        if (PackingOrder.GetPackingOrder().GetItemCount() == 0 && (mainPageState.GetInstance() is ProductInTheBasket))
+        {
+            mainPageState.SetInstance(ProductNotInTheBasket(binding!!))
+            updatePageWithState()
+        }
+        binding!!.OrderPrice.text = PackingOrder.GetPackingOrder().SummaryCost.toString() + " ₽"
+    }
+
+    override fun OnItemChanged(ItemID: Int) {
+        var showingFragment = BottomFragmentCatalogItem()
+        var selectedItem = Bundle()
+        selectedItem.putSerializable("item", catalogItems!![ItemID])
+        showingFragment.arguments = selectedItem;
+        Log.println(Log.INFO, "arg", showingFragment.arguments.toString())
+        showingFragment.cancelEvent.plusAssign {
+            binding!!.MainPageBlackout.visibility = View.GONE
+        }
+        showingFragment.show(supportFragmentManager, "tag");
+        binding!!.MainPageBlackout.visibility = View.VISIBLE;
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val MultipleListner : OnOrderMultipleListner = OnOrderMultipleListner();
+        MultipleListner.AddOnOrderListner(this);
+        PackingOrder.GetPackingOrder().onOrderListner = MultipleListner
         binding = ActivityMainPageBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
         SetAllAdapter()
@@ -78,20 +94,6 @@ class MainPage : AppCompatActivity() {
         binding!!.BasketButton.visibility = mainPageState.GetInstance().BasketButtonVisibile
         binding!!.MainInfoScrollView.layoutParams = mainPageState.GetInstance().MainInfoScrollViewLayoutParams
         binding!!.CatalogItemsRecyclerView.layoutParams = mainPageState.GetInstance().CatalogItemsRecyclerViewLayoutParams
-    }
-
-    fun ShowBottomSheetDialogFragment(catalogItemID : Int)
-    {
-        var showingFragment = BottomFragmentCatalogItem()
-        var selectedItem = Bundle()
-        selectedItem.putSerializable("item", catalogItems!![catalogItemID])
-        showingFragment.arguments = selectedItem;
-        Log.println(Log.INFO, "arg", showingFragment.arguments.toString())
-        showingFragment.cancelEvent.plusAssign {
-            binding!!.MainPageBlackout.visibility = View.GONE
-        }
-        showingFragment.show(supportFragmentManager, "tag");
-        binding!!.MainPageBlackout.visibility = View.VISIBLE;
     }
 
     //region recyclerViews builders methods
@@ -160,8 +162,8 @@ class MainPage : AppCompatActivity() {
         binding!!.CatalogItemsRecyclerView.layoutManager = LinearLayoutManager(this
             , LinearLayoutManager.VERTICAL, false);
         var CatalogItemsAdapter : CatalogRecyclerViewAdapter = CatalogRecyclerViewAdapter(catalogItems!!,
-                                                                                          FormingOrder, supportFragmentManager)
-        CatalogItemsAdapter.itemWasSelected.plusAssign(this::ShowBottomSheetDialogFragment)
+            PackingOrder.GetPackingOrder())
+        CatalogItemsAdapter.OnChangedSelectedItemListner = this;
         binding!!.CatalogItemsRecyclerView.adapter = CatalogItemsAdapter
     }
 

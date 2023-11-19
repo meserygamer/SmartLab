@@ -99,17 +99,17 @@ class CategoriesViewHolder(val binding: ActivityMainPageCatalogCategoryItemBindi
 //region CatalogRecyclerAdapter
 
 class CatalogRecyclerViewAdapter(private val AllCatalogItems : MutableList<CatalogItem>,
-                                 private val FormingOrder : Order,
-                                 private val supportFragmentManager: FragmentManager)
-    : RecyclerView.Adapter<CatalogViewHolder>() {
+                                 private val FormingOrder : Order)
+    : RecyclerView.Adapter<CatalogViewHolder>(), IOnOrderListner {
 
-    public val itemWasSelected : Action_Event<Int> = Action_Event()
+    var OnChangedSelectedItemListner : IOnChangedSelectedItemListner<Int>? = null
 
     init {
-        FormingOrder.NotifyAboutOrderCompositionWasChanged.plusAssign(
-            { ChangedItem ->
-                notifyItemChanged(AllCatalogItems.indexOf(ChangedItem));}
-        )
+        if(FormingOrder.onOrderListner is OnOrderMultipleListner)
+        {
+            var orderListner : OnOrderMultipleListner = FormingOrder.onOrderListner!! as OnOrderMultipleListner
+            orderListner.AddOnOrderListner(this)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogViewHolder {
@@ -153,7 +153,11 @@ class CatalogRecyclerViewAdapter(private val AllCatalogItems : MutableList<Catal
             holder.binding.root.setOnClickListener(object : View.OnClickListener
             {
                 override fun onClick(p0: View?) {
-                    itemWasSelected.invoke(position)
+
+                    if(OnChangedSelectedItemListner != null)
+                    {
+                        OnChangedSelectedItemListner!!.OnItemChanged(position)
+                    }
                 }
             })
         }
@@ -164,8 +168,18 @@ class CatalogRecyclerViewAdapter(private val AllCatalogItems : MutableList<Catal
         return AllCatalogItems.size
     }
 
+    override fun onOrderCompositionChanged(Item: CatalogItem) {
+        notifyItemChanged(AllCatalogItems.indexOf(Item));
+    }
+
 }
 
 class CatalogViewHolder(val binding: ActivityMainPageCatalogItemBinding) : RecyclerView.ViewHolder(binding.root)
+
+interface IOnChangedSelectedItemListner<T> {
+
+    fun OnItemChanged(Item: T)
+
+}
 
 //endregion
