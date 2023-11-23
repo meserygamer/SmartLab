@@ -9,12 +9,13 @@
                     <size android:height="32dp" android:width="32dp"></size>
                 </shape>
             </item>
-            <item>
+            <item android:left="5dp"
+                  android:top="6dp">
                 <vector
-                    android:width="20dp"
-                    android:height="20dp"
-                    android:viewportWidth="20"
-                    android:viewportHeight="20">
+                    android:width="10dp"
+                    android:height="10dp"
+                    android:viewportWidth="25"
+                    android:viewportHeight="25">
                     <path
                         android:pathData="M11.5,15L6.5,10L11.5,5"
                         android:strokeLineJoin="round"
