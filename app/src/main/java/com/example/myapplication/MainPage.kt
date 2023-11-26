@@ -3,6 +3,7 @@ package com.example.myapplication
 import APINewsItem
 import CatalogItem
 import Common
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -37,6 +38,7 @@ import main_page_classes.ProductNotInTheBasket
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.Instant
 
 
 class MainPage : AppCompatActivity(), IOnChangedSelectedItemListner<Int>, IOnOrderListner {
@@ -52,17 +54,20 @@ class MainPage : AppCompatActivity(), IOnChangedSelectedItemListner<Int>, IOnOrd
     var categoriesList : MutableList<String> = mutableListOf("Популярные", "COVID", "Онкогенетические", "ЗОЖ")
 
 
-    override fun onOrderCompositionChanged(Item: CatalogItem) {
-        if (PackingOrder.GetPackingOrder().GetItemCount() > 0 && (mainPageState.GetInstance() is ProductNotInTheBasket)) {
-            mainPageState.SetInstance(ProductInTheBasket(binding!!))
-            updatePageWithState()
-        }
-        if (PackingOrder.GetPackingOrder().GetItemCount() == 0 && (mainPageState.GetInstance() is ProductInTheBasket))
-        {
-            mainPageState.SetInstance(ProductNotInTheBasket(binding!!))
-            updatePageWithState()
-        }
-        binding!!.OrderPrice.text = PackingOrder.GetPackingOrder().SummaryCost.toString() + " ₽"
+    override fun onItemChanged(item: CatalogItem, position: Int) {
+        checkingForSwitchActivityMode()
+    }
+
+    override fun onAddItem(item: CatalogItem, position: Int) {
+        checkingForSwitchActivityMode()
+    }
+
+    override fun onRemoveItem(item: CatalogItem, position: Int) {
+        checkingForSwitchActivityMode()
+    }
+
+    override fun onClearOrder(orderCompositionList: List<Pair<CatalogItem, Int>>) {
+        checkingForSwitchActivityMode()
     }
 
     override fun OnItemChanged(ItemID: Int) {
@@ -80,13 +85,52 @@ class MainPage : AppCompatActivity(), IOnChangedSelectedItemListner<Int>, IOnOrd
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val MultipleListner : OnOrderMultipleListner = OnOrderMultipleListner();
-        MultipleListner.AddOnOrderListner(this);
-        PackingOrder.GetPackingOrder().onOrderListner = MultipleListner
+        SetRecyclerViewListner()
         binding = ActivityMainPageBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
         SetAllAdapter()
+        SetMainState()
+        binding!!.GoToBasketButton.setOnClickListener(object : View.OnClickListener{
+
+            override fun onClick(p0: View?) {
+                (PackingOrder.GetPackingOrder().onOrderListner as OnOrderMultipleListner).ClearOnOrderListnersCollection()
+                startActivity(Intent(this@MainPage, shopping_cart::class.java));
+            }
+
+        })
+    }
+
+    fun SetMainState()
+    {
         mainPageState = MainPageStateMachine(ProductNotInTheBasket(binding!!))
+        checkingForSwitchActivityMode()
+    }
+
+    fun SetRecyclerViewListner()
+    {
+        if(PackingOrder.GetPackingOrder().onOrderListner != null
+            && PackingOrder.GetPackingOrder().onOrderListner is OnOrderMultipleListner)
+        {
+            (PackingOrder.GetPackingOrder().onOrderListner as OnOrderMultipleListner).AddOnOrderListner(this)
+            return;
+        }
+        val MultipleListner : OnOrderMultipleListner = OnOrderMultipleListner();
+        MultipleListner.AddOnOrderListner(this);
+        PackingOrder.GetPackingOrder().onOrderListner = MultipleListner
+    }
+
+    fun checkingForSwitchActivityMode()
+    {
+        if (PackingOrder.GetPackingOrder().GetItemCount() > 0 && (mainPageState.GetInstance() is ProductNotInTheBasket)) {
+            mainPageState.SetInstance(ProductInTheBasket(binding!!))
+            updatePageWithState()
+        }
+        if (PackingOrder.GetPackingOrder().GetItemCount() == 0 && (mainPageState.GetInstance() is ProductInTheBasket))
+        {
+            mainPageState.SetInstance(ProductNotInTheBasket(binding!!))
+            updatePageWithState()
+        }
+        binding!!.OrderPrice.text = PackingOrder.GetPackingOrder().SummaryCost.toString() + " ₽"
     }
 
     fun updatePageWithState()

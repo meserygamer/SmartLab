@@ -168,8 +168,20 @@ class CatalogRecyclerViewAdapter(private val AllCatalogItems : MutableList<Catal
         return AllCatalogItems.size
     }
 
-    override fun onOrderCompositionChanged(Item: CatalogItem) {
-        notifyItemChanged(AllCatalogItems.indexOf(Item));
+    override fun onItemChanged(item: CatalogItem, position: Int) {
+        notifyItemChanged(AllCatalogItems.indexOf(item))
+    }
+
+    override fun onAddItem(item: CatalogItem, position: Int) {
+        notifyItemChanged(AllCatalogItems.indexOf(item))
+    }
+
+    override fun onRemoveItem(item: CatalogItem, position: Int) {
+        notifyItemChanged(AllCatalogItems.indexOf(item))
+    }
+
+    override fun onClearOrder(orderCompositionList: List<Pair<CatalogItem, Int>>) {
+        notifyDataSetChanged()
     }
 
 }

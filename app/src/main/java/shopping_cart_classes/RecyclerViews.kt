@@ -8,22 +8,68 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ActivityMainPageNewsItemBinding
 import com.example.myapplication.databinding.ActivityShoppingCartBinding
 import com.example.myapplication.databinding.ActivityShoppingCartOrderRowBinding
+import main_page_classes.IOnOrderListner
+import main_page_classes.OnOrderMultipleListner
 import main_page_classes.Order
 
-class OrderRecyclerView(public var BuildingOrder : Order) : RecyclerView.Adapter<OrderRowViewHolder>()
+class OrderRecyclerView(public var BuildingOrder : Order) : RecyclerView.Adapter<OrderRowViewHolder>(),IOnOrderListner
 {
+    init {
+        if(BuildingOrder.onOrderListner is OnOrderMultipleListner)
+        {
+            var mainListner : OnOrderMultipleListner = BuildingOrder.onOrderListner as OnOrderMultipleListner;
+            mainListner.AddOnOrderListner(this);
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderRowViewHolder {
         return OrderRowViewHolder(ActivityShoppingCartOrderRowBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun getItemCount(): Int {
-        return BuildingOrder.OrderComposition.count()
+        return BuildingOrder.OrderCompositionList.count()
     }
 
     override fun onBindViewHolder(holder: OrderRowViewHolder, position: Int) {
-        val OutputedItemKey : CatalogItem = BuildingOrder.OrderComposition.keys.toList()[position];
-        //
+        val OutputedItemKey : CatalogItem = BuildingOrder.OrderCompositionList[position].first
+        holder.onRemoveOrderItemListner = object : View.OnClickListener{
+
+            override fun onClick(p0: View?) {
+                BuildingOrder.RemoveItemFromOrder(OutputedItemKey)
+            }
+
+        }
+        holder.onAddNumberOrderItemListner = object : View.OnClickListener{
+
+            override fun onClick(p0: View?) {
+                BuildingOrder.IncrementNumberOfItem(OutputedItemKey);
+            }
+
+        }
+        holder.onDecreaseNumberOrderItemListner = object : View.OnClickListener{
+
+            override fun onClick(p0: View?) {
+                BuildingOrder.DicrementNumberOfItem(OutputedItemKey);
+            }
+
+        }
         holder.SetItem(OutputedItemKey,BuildingOrder.OrderComposition[OutputedItemKey]!!);
+    }
+
+    override fun onItemChanged(item: CatalogItem, position: Int) {
+        notifyItemChanged(position);
+    }
+
+    override fun onAddItem(item: CatalogItem, position: Int) {
+        notifyItemInserted(position)
+    }
+
+    override fun onRemoveItem(item: CatalogItem, position: Int) {
+        notifyItemRemoved(position)
+    }
+
+    override fun onClearOrder(orderCompositionList: List<Pair<CatalogItem, Int>>) {
+        notifyDataSetChanged()
     }
 
 }
