@@ -89,7 +89,6 @@
         android:fontFamily="@font/sf_pro_display_semibold"
         android:textSize="17sp"
         android:lineHeight="24dp"
-        android:textFontWeight="600"
-        />
+        android:textFontWeight="600"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
