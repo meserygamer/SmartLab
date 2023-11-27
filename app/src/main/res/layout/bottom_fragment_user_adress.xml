@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".AddressBottomSheetDialog"
+    android:background="@drawable/bottom_fragment_catalog_item_main_background"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="24dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/sf_pro_display_semibold"
+            android:textFontWeight="600"
+            android:lineHeight="28dp"
+            android:text="Адрес сдачи анализов"/>
+        
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bottom_fragment_user_adress_close_button"/>
+        
+    </RelativeLayout>
+
+    <!--Адрес заголовок TextView-->
+    <TextView
+        android:id="@+id/AdressFieldHandlerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:lineHeight="20dp"
+        android:text="Ваш адрес"
+        android:textFontWeight="400"
+        android:textSize="14sp"
+        android:textColor="#7E7E9A"/>
+
+    <!--Адрес поле EditText-->
+    <EditText
+        android:id="@+id/AdressFieldEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:paddingLeft="14dp"
+        android:background="@drawable/activity_order_registration_address_field_background"
+
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:lineHeight="20dp"
+        android:text="Введите ваш адрес"
+        android:textFontWeight="400"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:gravity="center_vertical"
+        android:inputType="text"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_marginRight="12.5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/LongitudeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Долгота"
+                android:textSize="14sp"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:textFontWeight="400"
+                android:lineHeight="20dp"
+                android:textColor="#7E7E9A"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="14dp"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:layout_below="@id/LongitudeTextView"
+                android:background="@drawable/activity_order_registration_address_field_background"
+
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:lineHeight="20dp"
+                android:text="188"
+                android:textFontWeight="400"
+                android:textSize="15sp"
+                android:textColor="@color/black"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_marginRight="12.5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/LatitudeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Широта"
+                android:textSize="14sp"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:textFontWeight="400"
+                android:lineHeight="20dp"
+                android:textColor="#7E7E9A"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="14dp"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:layout_below="@+id/LatitudeTextView"
+                android:background="@drawable/activity_order_registration_address_field_background"
+
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:lineHeight="20dp"
+                android:text="4"
+                android:textFontWeight="400"
+                android:textSize="15sp"
+                android:textColor="@color/black"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/HeightTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Высота"
+                android:textSize="14sp"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:textFontWeight="400"
+                android:lineHeight="20dp"
+                android:textColor="#7E7E9A"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="14dp"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:layout_below="@+id/HeightTextView"
+                android:background="@drawable/activity_order_registration_address_field_background"
+
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:lineHeight="20dp"
+                android:text="8"
+                android:textFontWeight="400"
+                android:textSize="15sp"
+                android:textColor="@color/black"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginRight="17.5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/FlatTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Квартира"
+                android:textSize="14sp"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:textFontWeight="400"
+                android:lineHeight="20dp"
+                android:textColor="#7E7E9A"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="14dp"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:layout_below="@id/FlatTextView"
+                android:background="@drawable/activity_order_registration_address_field_background"
+
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:lineHeight="20dp"
+                android:text="188"
+                android:textFontWeight="400"
+                android:textSize="15sp"
+                android:textColor="@color/black"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginRight="17.5dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/EntranceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Подъезд"
+                android:textSize="14sp"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:textFontWeight="400"
+                android:lineHeight="20dp"
+                android:textColor="#7E7E9A"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="14dp"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:layout_below="@+id/EntranceTextView"
+                android:background="@drawable/activity_order_registration_address_field_background"
+
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:lineHeight="20dp"
+                android:text="4"
+                android:textFontWeight="400"
+                android:textSize="15sp"
+                android:textColor="@color/black"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/FloorTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Этаж"
+                android:textSize="14sp"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:textFontWeight="400"
+                android:lineHeight="20dp"
+                android:textColor="#7E7E9A"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="14dp"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:layout_below="@+id/FloorTextView"
+                android:background="@drawable/activity_order_registration_address_field_background"
+
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:lineHeight="20dp"
+                android:text="8"
+                android:textFontWeight="400"
+                android:textSize="15sp"
+                android:textColor="@color/black"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!--Домофон заголовок TextView-->
+    <TextView
+        android:id="@+id/IntercomHandlerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:lineHeight="20dp"
+        android:text="Домофон"
+        android:textFontWeight="400"
+        android:textSize="14sp"
+        android:textColor="#7E7E9A"/>
+
+    <!--Домофон поле EditText-->
+    <EditText
+        android:id="@+id/IntercomEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:paddingLeft="14dp"
+        android:background="@drawable/activity_order_registration_address_field_background"
+
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:lineHeight="20dp"
+        android:text="188*2180"
+        android:textFontWeight="400"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:gravity="center_vertical"
+        android:inputType="text"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="18dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/sf_pro_display_medium"
+            android:textFontWeight="500"
+            android:lineHeight="20dp"
+            android:text="Адрес сдачи анализов"/>
+        
+        <androidx.appcompat.widget.SwitchCompat
+            android:checked="true"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:theme="@style/MySwitch"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/SaveingNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:visibility="visible"
+        android:paddingLeft="14dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/activity_order_registration_address_field_background"
+
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:lineHeight="20dp"
+        android:textFontWeight="400"
+        android:hint="Название: например дом, работа"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:gravity="center_vertical"
+        android:inputType="text"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/activity_main_page_catalog_add_button_background"
+
+        android:text="Подтвердить"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:textSize="17sp"
+        android:lineHeight="24dp"
+        android:textFontWeight="600"
+        />
+
+</LinearLayout>
