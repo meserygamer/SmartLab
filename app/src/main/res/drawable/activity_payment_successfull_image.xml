@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/activity_payment_successfull_image1"
+        android:height="180dp" android:width="195dp"
+        android:gravity="center"/>
+
+    <item android:drawable="@drawable/activity_payment_successfull_image2"
+        android:height="172dp" android:width="143dp"
+        android:left="20dp" android:bottom="30dp"/>
+
+</layer-list>

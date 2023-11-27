@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SmartLab</string>
+    <string name="richTest">Не забудьте ознакомиться с \u00A0\u00A0\u00A0\u00A0 <font color="#1A6FEE"> правилами\n подготовки к сдаче анализов</font> </string>
 </resources>
