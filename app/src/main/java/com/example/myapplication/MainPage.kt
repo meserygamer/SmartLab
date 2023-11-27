@@ -88,6 +88,7 @@ class MainPage : AppCompatActivity(), IOnChangedSelectedItemListner<Int>, IOnOrd
         SetRecyclerViewListner()
         binding = ActivityMainPageBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
+        binding!!.TestButtonNavigationBar.isSelected = true;
         SetAllAdapter()
         SetMainState()
         binding!!.GoToBasketButton.setOnClickListener(object : View.OnClickListener{
@@ -95,6 +96,13 @@ class MainPage : AppCompatActivity(), IOnChangedSelectedItemListner<Int>, IOnOrd
             override fun onClick(p0: View?) {
                 (PackingOrder.GetPackingOrder().onOrderListner as OnOrderMultipleListner).ClearOnOrderListnersCollection()
                 startActivity(Intent(this@MainPage, shopping_cart::class.java));
+            }
+
+        })
+        binding!!.GoToProfileButton.setOnClickListener(object : View.OnClickListener{
+
+            override fun onClick(p0: View?) {
+                startActivity(Intent(this@MainPage, ChangeProfile::class.java));
             }
 
         })

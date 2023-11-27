@@ -3,6 +3,7 @@ package com.example.myapplication
 import ClassifiedSwipeClass
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
@@ -22,6 +23,9 @@ import com.example.myapplication.databinding.ActivityScreenFirstEnter1Binding
 
 class screen_first_enter : AppCompatActivity(), GestureDetector.OnGestureListener {
     private var gestureDetectorCompat: GestureDetectorCompat? = null
+
+    private lateinit var prefs : SharedPreferences;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var binding = ActivityScreenFirstEnter1Binding.inflate(layoutInflater)
@@ -29,6 +33,9 @@ class screen_first_enter : AppCompatActivity(), GestureDetector.OnGestureListene
         setContentView(View)
         gestureDetectorCompat = GestureDetectorCompat(this, this)
         binding.textView.setOnClickListener{
+            prefs = getSharedPreferences("settings", Context.MODE_PRIVATE);
+            val editor : SharedPreferences.Editor = prefs.edit()
+            editor.putBoolean("FirstLookWasPassed", true).apply();
             val intent = Intent(this@screen_first_enter, LoginWindow::class.java)
             startActivity(intent)
         }

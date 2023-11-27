@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -60,6 +61,14 @@ class payment : AppCompatActivity() {
             }
 
         }, 6000)
+        binding.GoToMainPageButton.setOnClickListener(object : View.OnClickListener{
+
+            override fun onClick(p0: View?) {
+                var intent = Intent(this@payment, MainPage::class.java)
+                startActivity(intent)
+            }
+
+        })
     }
 
     private fun finishPayment()

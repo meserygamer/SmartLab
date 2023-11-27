@@ -5,6 +5,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import java.io.Serializable
 
+data class PatientCard(
+    var id : Int,
+    var firstName : String?,
+    var lastName : String?,
+    var middleName : String?,
+    var bitrthday : String,
+    var gender : String?
+)
+
 data class APINewsItem(
     val description: String?,
     val id: Int,

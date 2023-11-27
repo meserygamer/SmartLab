@@ -189,6 +189,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
+                android:id="@+id/TestButtonNavigationBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="41dp"
@@ -208,7 +209,7 @@
                     android:fontFamily="@font/sf_pro_display_regular"
                     android:lineHeight="16dp"
                     android:text="Анализы"
-                    android:textColor="#1A6FEE"
+                    android:textColor="@color/navigation_bar_color"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -264,6 +265,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/GoToProfileButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="13dp"

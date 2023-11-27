@@ -47,6 +47,14 @@ class shopping_cart : AppCompatActivity(),IOnOrderListner {
             }
 
         })
+        binding.GoToCheckoutButton.setOnClickListener(object : View.OnClickListener{
+
+            override fun onClick(p0: View?) {
+                (buildingOrder.onOrderListner as OnOrderMultipleListner).ClearOnOrderListnersCollection()
+                startActivity(Intent(this@shopping_cart, Order_Registration::class.java))
+            }
+
+        })
     }
 
     public fun setOrderRecyclerView()
@@ -58,6 +66,11 @@ class shopping_cart : AppCompatActivity(),IOnOrderListner {
 
     private fun setOrderSum()
     {
+        if(buildingOrder.SummaryCost == 0)
+        {
+            (buildingOrder.onOrderListner as OnOrderMultipleListner).ClearOnOrderListnersCollection()
+            startActivity(Intent(this@shopping_cart, MainPage::class.java))
+        }
         binding.OrderSumTextView.text = buildingOrder.SummaryCost.toString() + " ₽"
     }
 

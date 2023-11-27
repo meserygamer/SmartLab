@@ -4,36 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".CreatePatientCard">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="32dp"
+        android:paddingHorizontal="20dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="16dp">
 
             <TextView
-                android:layout_width="240dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:text="Создание карты\nпациента"
                 android:textSize="24sp"
                 android:textFontWeight="700"
-                android:layout_marginRight="16dp"
                 android:fontFamily="@font/sf_pro_display_bold"
                 android:lineHeight="28dp"/>
 
             <TextView
+                android:id="@+id/SkipPatientCardCreation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+
                 android:textColor="#1A6FEE"
                 android:text="Пропустить"
                 android:textSize="15sp"
@@ -41,7 +46,7 @@
                 android:fontFamily="@font/sf_pro_display_regular"
                 android:lineHeight="20dp"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -73,14 +78,14 @@
         </LinearLayout>
         
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginBottom="48dp">
             
             <EditText
                 android:id="@+id/NameField"
-                android:layout_width="335dp"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/activity_create_patient_card_edittext_back"
                 android:inputType="text"
@@ -95,7 +100,7 @@
 
             <EditText
                 android:id="@+id/PatronymicField"
-                android:layout_width="335dp"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/activity_create_patient_card_edittext_back"
                 android:inputType="text"
@@ -110,7 +115,7 @@
 
             <EditText
                 android:id="@+id/SurnameField"
-                android:layout_width="335dp"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:inputType="text"
                 android:background="@drawable/activity_create_patient_card_edittext_back"
@@ -125,7 +130,7 @@
 
             <EditText
                 android:id="@+id/BirthDayField"
-                android:layout_width="335dp"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:ems="10"
                 android:inputType="date"
@@ -141,7 +146,7 @@
 
             <Spinner
                 android:id="@+id/GenderSpiner"
-                android:layout_width="335dp"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/activity_create_patient_card_spinner" />
 
@@ -149,7 +154,7 @@
         
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/appCompatButton"
-            android:layout_width="335dp"
+            android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@drawable/send_code_button"
             android:enabled="false"

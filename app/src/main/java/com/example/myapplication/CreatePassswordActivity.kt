@@ -1,6 +1,8 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -12,11 +14,31 @@ class CreatePassswordActivity : AppCompatActivity() {
 
     var binding : ActivityCreatePassswordBinding? = null;
 
+    private lateinit var prefs : SharedPreferences;
+
     private var password : String = "";
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
+        prefs = getSharedPreferences("settings", Context.MODE_PRIVATE);
         binding = ActivityCreatePassswordBinding.inflate(layoutInflater);
+        binding!!.skipPassordCreation.setOnClickListener(object : View.OnClickListener{
+
+            override fun onClick(p0: View?) {
+
+                if(prefs.contains("PatientCardWasCreated"))
+                {
+                    var intent = Intent(this@CreatePassswordActivity, MainPage::class.java)
+                    startActivity(intent)
+                    return;
+                }
+                var intent = Intent(this@CreatePassswordActivity, CreatePatientCard::class.java)
+                startActivity(intent)
+                return;
+
+            }
+
+        })
         setContentView(binding!!.root);
     }
 
@@ -56,13 +78,20 @@ class CreatePassswordActivity : AppCompatActivity() {
     }
 
     private fun AddCharInPassword(Number : Char){
+        password += Number
+        showPasswordStateOnScreen();
         if(password.length == 4){
+            (prefs.edit()).putString("Password", password).apply();
+            if(prefs.contains("PatientCardWasCreated"))
+            {
+                var intent = Intent(this@CreatePassswordActivity, MainPage::class.java)
+                startActivity(intent)
+                return;
+            }
             var intent = Intent(this@CreatePassswordActivity, CreatePatientCard::class.java)
             startActivity(intent)
             return;
         }
-        password += Number
-        showPasswordStateOnScreen();
     }
 
     fun clickOnNumber(v: View) {

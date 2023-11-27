@@ -35,7 +35,7 @@
                 android:layout_width="148dp"
                 android:layout_height="123dp"
                 android:layout_marginTop="7dp"
-                android:src="@drawable/activity_screen_first_enter_picture_2"
+                android:src="#D9D9D9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4"
@@ -191,6 +191,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
+                android:id="@+id/GoToTestButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="41dp"
@@ -210,7 +211,7 @@
                     android:fontFamily="@font/sf_pro_display_regular"
                     android:lineHeight="16dp"
                     android:text="Анализы"
-                    android:textColor="#1A6FEE"
+                    android:textColor="#B8C1CC"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -266,6 +267,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ProfileButtonNavigationBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="13dp"
@@ -285,7 +287,7 @@
                     android:fontFamily="@font/sf_pro_display_regular"
                     android:lineHeight="16dp"
                     android:text="Профиль"
-                    android:textColor="#B8C1CC"
+                    android:textColor="@color/navigation_bar_color"
                     android:textSize="12sp" />
 
             </LinearLayout>

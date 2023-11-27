@@ -1,7 +1,9 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import com.example.myapplication.databinding.ActivityChangeProfileBinding
 
@@ -14,6 +16,14 @@ class ChangeProfile : AppCompatActivity() {
         binding = ActivityChangeProfileBinding.inflate(layoutInflater)
         setSpiner()
         setContentView(binding!!.root)
+        binding!!.ProfileButtonNavigationBar.isSelected = true;
+        binding!!.GoToTestButton.setOnClickListener(object : View.OnClickListener{
+
+            override fun onClick(p0: View?) {
+                startActivity(Intent(this@ChangeProfile, MainPage::class.java));
+            }
+
+        })
     }
 
     fun setSpiner() {

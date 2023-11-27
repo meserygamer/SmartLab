@@ -147,6 +147,7 @@
                 android:layout_below="@id/OrderTargetsHandlerTextView"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/AddPatientButton"
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:background="@drawable/activity_order_registration_add_participant_button"
@@ -311,10 +312,11 @@
                 android:text="690 ₽"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/RegisterButton"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="12dp"
-                android:enabled="false"
+                android:enabled="true"
                 android:layout_marginBottom="32dp"
                 android:layout_below="@id/OrderPriceField"
                 android:background="@drawable/activity_order_registration_buy_button"

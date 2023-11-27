@@ -1,7 +1,9 @@
 package com.example.myapplication
 
 import ClassifiedSwipeClass
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Binder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +16,9 @@ import com.example.myapplication.databinding.ActivityScreenFirstEnter2Binding
 class activity_screen_first_enter2 : AppCompatActivity(), GestureDetector.OnGestureListener {
 
     private var gestureDetectorCompat: GestureDetectorCompat? = null
+
+    private lateinit var prefs : SharedPreferences;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var binding = ActivityScreenFirstEnter2Binding.inflate(layoutInflater)
@@ -21,6 +26,9 @@ class activity_screen_first_enter2 : AppCompatActivity(), GestureDetector.OnGest
         setContentView(View)
         gestureDetectorCompat = GestureDetectorCompat(this, this)
         binding.textView.setOnClickListener{
+            prefs = getSharedPreferences("settings", Context.MODE_PRIVATE);
+            val editor : SharedPreferences.Editor = prefs.edit()
+            editor.putBoolean("FirstLookWasPassed", true).apply();
             val intent = Intent(this@activity_screen_first_enter2, LoginWindow::class.java)
             startActivity(intent)
         }

@@ -1,7 +1,9 @@
 package com.example.myapplication
 
 import Common
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -30,9 +32,12 @@ class enter_confirm_email : AppCompatActivity(), TextWatcher {
         }
     }
 
+    private lateinit var prefs : SharedPreferences;
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        prefs = getSharedPreferences("settings", Context.MODE_PRIVATE);
         _bind = inflate(layoutInflater)
         setContentView(_bind!!.root)
         _bind!!.MoveOnPreviousPageButton.setOnClickListener {
@@ -62,8 +67,24 @@ class enter_confirm_email : AppCompatActivity(), TextWatcher {
                             if(response.body() != null)
                             {
                                 Common.Bearer = response.body()!!
-                                var intent = Intent(this@enter_confirm_email, CreatePassswordActivity::class.java)
-                                startActivity(intent)
+                                if(prefs.contains("Password"))
+                                {
+                                    if(prefs.contains("PatientCardWasCreated"))
+                                    {
+                                        var intent = Intent(this@enter_confirm_email, MainPage::class.java)
+                                        startActivity(intent)
+                                    }
+                                    else
+                                    {
+                                        var intent = Intent(this@enter_confirm_email, CreatePatientCard::class.java)
+                                        startActivity(intent)
+                                    }
+                                }
+                                else
+                                {
+                                    var intent = Intent(this@enter_confirm_email, CreatePassswordActivity::class.java)
+                                    startActivity(intent)
+                                }
                             }
                         }
                         else{
